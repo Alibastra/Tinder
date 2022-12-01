@@ -7,5 +7,5 @@ import lombok.Data;
 public class SympathyInfo{
     private Long who;
     private Long whom;
-    private String status;
+    private Boolean status;
 }
