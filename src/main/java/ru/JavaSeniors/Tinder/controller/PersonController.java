@@ -62,7 +62,7 @@ public class PersonController {
             Person p = person.get();
             String genderDesc = genderRepository.getDesc((long) p.getGender());
             String search_objectDesc = searchObjectRepository.getDesc((long) p.getSearchObject());
-            return Optional.of(new PersonInfo(p.getId(), p.getName(), genderDesc, search_objectDesc));
+            return Optional.of(new PersonInfo(p.getId(), getTextTranslation(p.getName()), genderDesc, search_objectDesc));
         }
         return Optional.empty();
 
@@ -90,6 +90,8 @@ public class PersonController {
      */
     @PostMapping("/createOrUpdatePerson")
     public void createOrUpdatePerson(@RequestBody PersonFromClient person) {
+        System.out.println("====================================");
+        System.out.println(person);
         Optional<Long> genderId = Optional.ofNullable(genderRepository.getId(person.getGender()));
         Optional<Long> search_objectId = Optional.ofNullable(searchObjectRepository.getId(person.getSearchObject()));
         if (search_objectId.isPresent() && genderId.isPresent()) {
